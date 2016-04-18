@@ -17,6 +17,7 @@ Stories: [![Stories in Dev Ready](https://badge.waffle.io/hacklabr/mapasculturai
 - [Entidades dos Mapas Culturais](doc/entidades.md)
 - [API](doc/api.md)
 - [Guia do desenvolvedor](doc/developer-guide.md)
+- [Deploy no Ubuntu 14.04 com nginx e php-fpm](doc/deploy-ubuntu-14.04.md)
 - [Importação de arquivos de dados geoespaciais (Shapefiles)](doc/shapefiles.md)
 
 ### Requisitos para Instalação
@@ -57,3 +58,5 @@ sudo gem install sass
 ```
 ### Suporte
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hacklabr/mapasculturais?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+Lista de discussão: https://groups.google.com/forum/?hl=en#!forum/mapas-culturais

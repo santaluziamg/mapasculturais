@@ -643,7 +643,7 @@ class Theme extends MapasCulturais\Theme {
         $this->enqueueStyle('vendor', 'leaflet-draw', 'vendor/leaflet/lib/leaflet-plugins-updated-2014-07-25/Leaflet.draw-master/dist/leaflet.draw.css', array('leaflet'));
         $this->enqueueScript('vendor', 'leaflet-draw', 'vendor/leaflet/lib/leaflet-plugins-updated-2014-07-25/Leaflet.draw-master/dist/leaflet.draw-src.js', array('leaflet'));
 
-        $this->enqueueScript('vendor', 'google-maps-api', 'http://maps.google.com/maps/api/js?v=3.2&sensor=false');
+        $this->enqueueScript('vendor', 'google-maps-api', '//maps.google.com/maps/api/js?v=3.2&sensor=false');
 
         //Leaflet Plugins (Google)false');
         $this->enqueueScript('vendor', 'leaflet-google-tile', 'vendor/leaflet/lib/leaflet-plugins-updated-2014-07-25/leaflet-plugins-master/layer/tile/Google.js', array('leaflet'));
@@ -884,9 +884,17 @@ class Theme extends MapasCulturais\Theme {
 
     function addProjectEventsToJs(Entities\Project $entity){
         $app = App::i();
+
+        $ids = $entity->getChildrenIds();
+
+        $ids[] = $entity->id;
+
+
+        $in = implode(',', array_map(function ($e){ return '@Project:' . $e; }, $ids));
+
         $this->jsObject['entity']['events'] = $app->controller('Event')->apiQuery([
-            '@select' => 'id,name,shortDescription,singleUrl,occurrences,status,owner.id,owner.name,owne.singleUrl',
-            'project' => 'EQ(@Project:' . $entity->id . ')',
+            '@select' => 'id,name,shortDescription,classificacaoEtaria,singleUrl,occurrences,terms,status,owner.id,owner.name,owner.singleUrl',
+            'project' => 'IN(' . $in . ')',
             '@permissions' => 'view',
             '@files' => '(avatar.avatarSmall):url'
         ]);
@@ -955,6 +963,12 @@ class Theme extends MapasCulturais\Theme {
     function getOneVerifiedEntity($entity_class) {
         $app = \MapasCulturais\App::i();
 
+        $cache_id = __METHOD__ . ':' . $entity_class;
+
+        if($app->cache->contains($cache_id)){
+            return $app->cache->fetch($cache_id);
+        }
+
         $dql = "
         SELECT
            e.id
@@ -989,23 +1003,47 @@ class Theme extends MapasCulturais\Theme {
 
         if ($ids) {
             $id = $ids[array_rand($ids)]['id'];
-            return $app->repo($entity_class)->find($id);
+            $result = $app->repo($entity_class)->find($id);
         } else {
-            return null;
+            $result = null;
         }
+
+        $app->cache->save($cache_id, $result, 120);
+
+        return $result;
     }
 
     function getEntityFeaturedImageUrl($entity) {
-        if (key_exists('gallery', $entity->files)) {
-            return $entity->files['gallery'][array_rand($entity->files['gallery'])]->transform('galleryFull')->url;
-        } elseif (key_exists('avatar', $entity->files)) {
-            return $entity->files['avatar']->transform('galleryFull')->url;
-        } else {
-            return null;
+        $app = \MapasCulturais\App::i();
+
+        $cache_id = __METHOD__ . ':' . $entity;
+
+        if($app->cache->contains($cache_id)){
+            return $app->cache->fetch($cache_id);
         }
+
+        if (key_exists('gallery', $entity->files)) {
+            $result = $entity->files['gallery'][array_rand($entity->files['gallery'])]->transform('galleryFull')->url;
+        } elseif (key_exists('avatar', $entity->files)) {
+            $result = $entity->files['avatar']->transform('galleryFull')->url;
+        } else {
+            $result = null;
+        }
+
+        $app->cache->save($cache_id, $result, 1800);
+
+        return $result;
     }
 
     function getNumEntities($class, $verified = 'all', $use_cache = true, $cache_lifetime = 300){
+        $app = \MapasCulturais\App::i();
+
+        $cache_id = __METHOD__ . ':' . $class . ':' . $verified;
+
+        if($use_cache && $app->cache->contains($cache_id)){
+            return $app->cache->fetch($cache_id);
+        }
+
         $em = App::i()->em;
         $dql = "SELECT COUNT(e) FROM $class e WHERE e.status > 0";
 
@@ -1019,28 +1057,54 @@ class Theme extends MapasCulturais\Theme {
 
         $q = $em->createQuery($dql);
 
+        $result = $q->getSingleScalarResult();
+
         if($use_cache){
-            $q->useQueryCache(true)->setResultCacheLifetime($cache_lifetime);
+            $app->cache->save($cache_id, $result, $cache_lifetime);
         }
 
-        return $q->getSingleScalarResult();
+        return $result;
     }
 
     function getNumEvents($from = null, $to = null){
-        return App::i()->controller('Event')->apiQueryByLocation(array(
+        $app = \MapasCulturais\App::i();
+
+        $cache_id = __METHOD__ . ':' . $to . ':' . $from;
+
+        if($app->cache->contains($cache_id)){
+            return $app->cache->fetch($cache_id);
+        }
+
+        $result = $app->controller('Event')->apiQueryByLocation(array(
             '@count' => 1,
             '@from' => date('Y-m-d'),
             '@to' => date('Y-m-d', time() + 365 * 24 * 3600)
         ));
+
+        $app->cache->save($cache_id, $result, 120);
+
+        return $result;
     }
 
     function getNumVerifiedEvents($from = null, $to = null){
-        return App::i()->controller('Event')->apiQueryByLocation(array(
+        $app = \MapasCulturais\App::i();
+
+        $cache_id = __METHOD__ . ':' . $to . ':' . $from;
+
+        if($app->cache->contains($cache_id)){
+            return $app->cache->fetch($cache_id);
+        }
+
+        $result = $app->controller('Event')->apiQueryByLocation(array(
             '@count' => 1,
             '@from' => date('Y-m-d'),
             '@to' => date('Y-m-d', time() + 365 * 24 * 3600),
             'isVerified' => 'EQ(true)'
         ));
+
+        $app->cache->save($cache_id, $result, 120);
+
+        return $result;
     }
 
     function getRegistrationStatusName($registration){
