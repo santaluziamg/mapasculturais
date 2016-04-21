@@ -9,7 +9,11 @@ $app = MapasCulturais\App::i();
 $em = $app->em;
 $conn = $em->getConnection();
 
-return array(
+return array( 
+    'change id of space type 201 to 210' => function() use($conn) {
+        $conn->executeQuery("UPDATE space SET type = 210 WHERE type = 201");
+    },
+            
     'import ceara data' => function() use( $conn, $app ) {
         return true; // já executou
         /*

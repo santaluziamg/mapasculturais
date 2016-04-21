@@ -282,15 +282,23 @@ return array(
                 703 => array( 'name' => 'Instituição Privada Filantrópica exclusivamente voltada para formação artistica e cultural' ),
               )
         ),
-<<<<<<< HEAD
 
         'Outros' => array(
             'range' => array(200, 299),
             'items' => array(
                 200 => array( 'name' => 'Bens culturais de natureza material' ),
-                201 => array( 'name' => 'Bens culturais de natureza imaterial' ), // adicionado na importação dos dados do Ceará para receber as endidades do tipo "patrimonio-imaterial"
+                201 => array( 'name' => 'Bem Imóvel' ),
+                202 => array( 'name' => 'Bem Arqueológico' ),
+                203 => array( 'name' => 'Bem Paisagístico' ),
+                204 => array( 'name' => 'Bem Móvel ou Integrado' ),
+                205 => array( 'name' => 'Sitio Histórico' ),
+                206 => array( 'name' => 'Documentação' ),                
+                
+                210 => array( 'name' => 'Bens culturais de natureza imaterial' ), // adicionado na importação dos dados do Ceará para receber as endidades do tipo "patrimonio-imaterial"
+                
                 299 => array( 'name' => 'Outros' ) // adicionado na importação dos dados do Ceará para receber as endidades do tipo "post"
-=======
+            )
+        ),  
         
        'Escolas livres' => array(
             'range' => array(800,899),
@@ -307,24 +315,6 @@ return array(
                 809 => array( 'name' => 'Escola livre de Patrimônio' ),
                 810 => array( 'name' => 'Escola livre de Design' ),
               )
-        ),        
-
-/**
- * Patrimônios Culturais
- */   
-        
-        'Bens culturais de natureza material' => array(
-            'range' => array(200, 299),
-            'items' => array(
-                200 => array( 'name' => 'Bens culturais de natureza material' ),
-                201 => array( 'name' => 'Bem Imóvel' ),
-                202 => array( 'name' => 'Bem Arqueológico' ),
-                203 => array( 'name' => 'Bem Paisagístico' ),
-                204 => array( 'name' => 'Bem Móvel ou Integrado' ),
-                205 => array( 'name' => 'Sitio Histórico' ),
-                206 => array( 'name' => 'Documentação' ),                
->>>>>>> stable
-            )
         ),
 
         'Temporário' => array(
