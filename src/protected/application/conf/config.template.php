@@ -3,9 +3,9 @@ $config = include 'conf-base.php';
 
 return array_merge($config,
     [
-        'app.siteName' => 'Nome do site',
+        'app.siteName' => 'Mapeando a Cultura',
         'app.siteDescription' => 'Descrição do site',
-        
+
         /* configure e descomente as linhas abaixo para habilitar um tema personalizado */
         // 'namespaces' => array_merge( $config['namespaces'], ['Name\Space\Do\Tema' => '/caminho/absoluto/para/o/tema']),
         // 'themes.active' => 'Name\Space\Do\Tema',
@@ -20,14 +20,14 @@ return array_merge($config,
             'process.css' => 'uglifycss {IN} > {OUT} ',
             'publishFolderCommand' => 'cp -R {IN} {PUBLISH_PATH}{FILENAME}'
         ]),
-        
+
         // development, staging, production
         'app.mode' => 'production',
 
         'doctrine.isDev' => false,
         'slim.debug' => false,
         'maps.includeGoogleLayers' => true,
-        
+
         'app.geoDivisionsHierarchy' => [
             'pais' => 'País',
             'regiao' => 'Região',
@@ -40,13 +40,13 @@ return array_merge($config,
             'distrito' => 'Distrito'
         ],
         // latitude, longitude
-        'maps.center' => [-13.987376214146455, -54.38232421875],
-        
+        'maps.center' => [-19.7571496, -43.8854879],
+
         // zoom do mapa
         'maps.zoom.default' => 5,
 
         'plugins.enabled' => array('agenda-singles', 'endereco'),
-        
+
         'auth.provider' => 'Fake',
 
         /* Modelo de configuração para usar o id da cultura */

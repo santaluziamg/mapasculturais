@@ -3,8 +3,8 @@ $config = include 'conf-base.php';
 
 return array_merge($config,
     [
-        'app.siteName' => 'Nome do site',
-        'app.siteDescription' => 'Descrição do site',
+        'app.siteName' => 'Mapeando a Cultura',
+        'app.siteDescription' => 'Mapa Cultural Colaborativo de Santa Luzia Mg',
 
         /* configure e descomente as linhas abaixo para habilitar um tema personalizado */
         // 'namespaces' => array_merge( $config['namespaces'], ['Name\Space\Do\Tema' => '/caminho/absoluto/para/o/tema']),

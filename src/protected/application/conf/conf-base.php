@@ -44,14 +44,14 @@ return array(
     'app.offline' => false,
     'app.offlineUrl' => '/offline',
     'app.offlineBypassFunction' => null,
-    
+
     'app.enabled.agents'   => true,
     'app.enabled.spaces'   => true,
     'app.enabled.projects' => true,
     'app.enabled.events'   => true,
     'app.enabled.apps'     => true,
 
-    'themes.active' => 'MapasCulturais\Themes\BaseV1',
+    'themes.active' => 'MapasCulturais\Themes\SantaLuzia',
     'themes.active.debugParts' => false,
     'themes.assetManager' => new \MapasCulturais\AssetManagers\FileSystem(array(
         'publishPath' => BASE_PATH . $asset_dir,
@@ -64,8 +64,9 @@ return array(
         'publishFolderCommand' => 'cp -R {IN} {PUBLISH_PATH}{FILENAME}'
     )),
 
-//    'maps.center' => array(-23.54894, -46.63882), // são paulo
-    'maps.center' => array(-14.2400732, -53.1805018), // brasil
+    // 'maps.center' => array(--19.7571496, -43.8854879), // Santa Luzia MG
+    // 'maps.center' => array(-14.2400732, -53.1805018), // brasil
+    'maps.center' => array(--19.7571496, -43.8854879),
     'maps.maxClusterRadius' => 40,
     'maps.spiderfyDistanceMultiplier' => 1.3,
     'maps.maxClusterElements' => 6,
@@ -188,7 +189,7 @@ return array(
     /* ==================== CACHE ================== */
     'app.cache' => new \Doctrine\Common\Cache\ApcCache(),
     'app.cache.namespace' => @$_SERVER['HTTP_HOST'],
-    
+
     'app.useRegisteredAutoloadCache' => true,
     'app.registeredAutoloadCache.lifetime' => 0,
 
