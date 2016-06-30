@@ -34,8 +34,8 @@ return array(
     'app.dbUpdatesDisabled' => false,
     'app.defaultApiOutput' => 'json',
 
-    'app.siteName' => 'Mapas Culturais',
-    'app.siteDescription' => 'O Mapas Culturais é uma plataforma livre para mapeamento cultural.',
+    'app.siteName' => 'Mapeando Cultura',
+    'app.siteDescription' => 'O Mapeando Cultura é uma plataforma livre para mapeamento cultural.',
 
     'api.accessControlAllowOrigin' => '*',
 
@@ -66,7 +66,7 @@ return array(
 
     // 'maps.center' => array(--19.7571496, -43.8854879), // Santa Luzia MG
     // 'maps.center' => array(-14.2400732, -53.1805018), // brasil
-    'maps.center' => array(--19.7571496, -43.8854879),
+    'maps.center' => array(-19.7571496, -43.8854879),
     'maps.maxClusterRadius' => 40,
     'maps.spiderfyDistanceMultiplier' => 1.3,
     'maps.maxClusterElements' => 6,

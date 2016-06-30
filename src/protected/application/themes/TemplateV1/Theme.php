@@ -1,5 +1,5 @@
 <?php
-namespace TemplateV1;
+namespace SantaLuzia;
 use MapasCulturais\Themes\BaseV1;
 use MapasCulturais\App;
 
